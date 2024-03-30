@@ -71,28 +71,21 @@ const WeatherCard: React.FC<Props> = ({
   addToFavorites,
   isAdded,
 }) => {
-  const [weatherIsAdded, setWeatherIsAdded] = useState(false);
+  const [weatherIsAdded, setWeatherIsAdded] = useState(isAdded);
 
   useEffect(() => {
-    const storedWeatherData = localStorage.getItem("weatherData");
-    const storedData = storedWeatherData ? JSON.parse(storedWeatherData) : null;
-    const dataToDisplay = weatherData || storedData;
+    const favoritesData = localStorage.getItem("favorites");
+    const favorites = favoritesData ? JSON.parse(favoritesData) : [];
 
-    if (dataToDisplay) {
-      // Assuming you have a way to determine if weather data is in favorites
-      const favoritesData = localStorage.getItem("favoritesData");
-      const favorites = favoritesData ? JSON.parse(favoritesData) : [];
-  
-      const isInFavorites = favorites.some((fav: WeatherData) => {
-        return fav.name === dataToDisplay.name; // Assuming the name uniquely identifies weather data
-      });
-  
-      setWeatherIsAdded(isInFavorites);
-    }
-  }, [weatherData]);
+    const isInFavorites = favorites.some((fav: { id: number; data: WeatherData }) => {
+      return fav.data.name === weatherData?.name;
+    });
+
+    setWeatherIsAdded(isInFavorites);
+  }, [weatherData, isAdded]);
 
   const handleAddToFavorites = () => {
-    addToFavorites(weatherData!); // Assuming weatherData is not null here
+    addToFavorites(weatherData!);
     setWeatherIsAdded(true);
   };
 

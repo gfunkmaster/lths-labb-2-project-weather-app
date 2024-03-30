@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { WeatherData } from "../interface/Interface";
-import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 const FavoritesContainer = styled.div`
   margin-top: 20px;
@@ -89,8 +89,8 @@ const Favorites: React.FC<FavoritesProps> = ({
 
   return (
     <>
-      <Navbar />
-      <h2>Favorites</h2>
+
+     <Header/>
       <FavoritesContainer>
         {favorites.length > 0 ? (
           favorites.map((favorite, index) => (

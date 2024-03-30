@@ -47,7 +47,7 @@ const getLocalStorage = (): WeatherContextState => {
   const storedData = localStorage.getItem("weatherData");
   if (storedData) {
     const parsedData = JSON.parse(storedData);
-    // Check if favorites is an array, otherwise initialize it as an empty array
+
     if (!Array.isArray(parsedData.favorites)) {
       parsedData.favorites = [];
     }
@@ -58,7 +58,7 @@ const getLocalStorage = (): WeatherContextState => {
       weatherDataList: [],
       error: null,
       loading: false,
-      favorites: [] // Ensure favorites is always initialized as an array
+      favorites: [] 
     };
   }
 };
@@ -67,7 +67,7 @@ const getLocalStorage = (): WeatherContextState => {
 export const WeatherProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const [state, setState] = useState<WeatherContextState>(getLocalStorage());
-   // Save state to localStorage whenever it changes
+   
    useEffect(() => {
     localStorage.setItem("weatherData", JSON.stringify(state));
   }, [state]);
@@ -124,7 +124,7 @@ export const WeatherProvider: FC<{ children: React.ReactNode }> = ({ children })
 
   useEffect(() => {
     localStorage.setItem("weatherData", JSON.stringify(state));
-  }, [state]); // Update localStorage when state changes
+  }, [state]);
 
   const contextValue: WeatherContextType = {
     state,

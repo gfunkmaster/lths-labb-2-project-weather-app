@@ -1,25 +1,25 @@
-import React from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import WeatherList from "./WeatherList";
 import { useWeatherContext } from "./context/WeatherContext";
-import ErrorBoundary from "./ErrorBoundry";
 import { WeatherData } from "../interface/Interface";
-import Navbar from "./Navbar";
+import Header from "./Header";
+import Footer from "./Footer";
 
-// Define a styled div for the home page container
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  width: 100 %;
+  margin: 0 auto;
 `;
 
 const Home = () => {
-  const { state, deleteFavorite, addFavorite } = useWeatherContext(); // Access context state
-  const { weatherDataList, weatherData, error } = state;
+  const { state, addFavorite } = useWeatherContext(); // Access context state
+  const { weatherDataList, error } = state;
 
-  // Customize error messages based on different error scenarios
+  
   const getErrorMessage = () => {
     if (error && error.code === 404) {
       return "City not found. Please enter a valid city name.";
@@ -33,10 +33,9 @@ const Home = () => {
   };
 
   return (
-    <ErrorBoundary>
+    <>
+      <Header />
       <HomeContainer>
-        <h1>Welcome to Weather App</h1>
-        <Navbar />
         <SearchBar />
         {error ? (
           <div>Error: {getErrorMessage()}</div>
@@ -50,7 +49,8 @@ const Home = () => {
           />
         )}
       </HomeContainer>
-    </ErrorBoundary>
+      <Footer />
+    </>
   );
 };
 
