@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useWeatherContext } from "./context/WeatherContext";
 import styled from "styled-components";
 
@@ -27,18 +27,17 @@ const Button = styled.button`
   }
 `;
 
- const SearchBar = () => {
+const SearchBar = () => {
   const { fetchWeatherData } = useWeatherContext();
   const [city, setCity] = useState("");
 
   const handleSearch = () => {
     if (city.trim() !== "") {
-      fetchWeatherData(city); // Call fetchWeatherData function from context
-      setCity(""); // Clear input after fetching weather data
-      
+      fetchWeatherData(city);
+      setCity("");
     }
   };
-  
+
   return (
     <>
       <SearchBarWrapper>

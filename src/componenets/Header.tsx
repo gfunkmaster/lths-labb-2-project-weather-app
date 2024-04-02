@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Navbar from './Navbar';
+import styled from "styled-components";
+import Navbar from "./Navbar";
 
 const HeaderContainer = styled.div`
   background-color: #7f9ba6;
@@ -15,7 +15,7 @@ const HeaderContainer = styled.div`
 const HeaderTitle = styled.h1`
   font-size: 24px;
   margin: 0;
-  padding: 2px
+  padding: 2px;
 `;
 
 const Header = () => {

@@ -1,13 +1,11 @@
-import React, { FC, createContext, useContext, useEffect, useState } from "react";
+import React, {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { WeatherData } from "../../interface/Interface";
-
-// interface WeatherData {
-//   temperature: number;
-//   description: string;
-//   iconUrl: string;
-//   city: string;
-//   country: string;
-// }
 
 interface ErrorData {
   message: string;
@@ -16,7 +14,7 @@ interface ErrorData {
 
 interface WeatherContextState {
   weatherData: WeatherData | null;
-  weatherDataList: WeatherData[]; // Array of weather data
+  weatherDataList: WeatherData[]; 
   error: ErrorData | null;
   loading: boolean;
   favorites: { id: number; data: WeatherData }[];
@@ -58,17 +56,17 @@ const getLocalStorage = (): WeatherContextState => {
       weatherDataList: [],
       error: null,
       loading: false,
-      favorites: [] 
+      favorites: [],
     };
   }
 };
 
-
-export const WeatherProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
-
+export const WeatherProvider: FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [state, setState] = useState<WeatherContextState>(getLocalStorage());
-   
-   useEffect(() => {
+
+  useEffect(() => {
     localStorage.setItem("weatherData", JSON.stringify(state));
   }, [state]);
 
@@ -80,11 +78,11 @@ export const WeatherProvider: FC<{ children: React.ReactNode }> = ({ children })
       );
 
       if (response.status === 429) {
-        throw new Error('Too many requests. Please try again later.');
+        throw new Error("Too many requests. Please try again later.");
       }
 
       if (response.status === 401) {
-        throw new Error('Invalid API key');
+        throw new Error("Invalid API key");
       }
 
       const data = await response.json();
@@ -94,33 +92,33 @@ export const WeatherProvider: FC<{ children: React.ReactNode }> = ({ children })
         weatherDataList: [...prevState.weatherDataList, data],
         error: null,
         loading: false,
-        favorites: []
+        favorites: [],
       }));
     } catch (error) {
       setState((prevState) => ({
         ...prevState,
         error: {
-          message: error instanceof Error ? error.message : 'An error occurred.',
+          message:
+            error instanceof Error ? error.message : "An error occurred.",
         },
         loading: false,
       }));
     }
   };
 
-  const addFavorite = (id:number, data: WeatherData) => {
+  const addFavorite = (id: number, data: WeatherData) => {
     setState((prevState) => ({
       ...prevState,
-      favorites: [...prevState.favorites, {id, data}]
-    }))
-  }
+      favorites: [...prevState.favorites, { id, data }],
+    }));
+  };
 
   const deleteFavorite = (id: number) => {
     setState((prevState) => ({
       ...prevState,
       favorites: prevState.favorites.filter((fav) => fav.id !== id),
     }));
-  }
-
+  };
 
   useEffect(() => {
     localStorage.setItem("weatherData", JSON.stringify(state));
@@ -130,7 +128,7 @@ export const WeatherProvider: FC<{ children: React.ReactNode }> = ({ children })
     state,
     fetchWeatherData,
     addFavorite,
-    deleteFavorite
+    deleteFavorite,
   };
 
   return (

@@ -16,10 +16,9 @@ const HomeContainer = styled.div`
 `;
 
 const Home = () => {
-  const { state, addFavorite } = useWeatherContext(); // Access context state
+  const { state, addFavorite } = useWeatherContext();
   const { weatherDataList, error } = state;
 
-  
   const getErrorMessage = () => {
     if (error && error.code === 404) {
       return "City not found. Please enter a valid city name.";

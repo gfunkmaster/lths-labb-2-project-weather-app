@@ -1,8 +1,8 @@
-import { FC } from 'react';
-import styled from 'styled-components';
-import WeatherCard from './WeatherCard'; // Import WeatherCard component
-import { WeatherData } from '../interface/Interface'; // Import WeatherData interface
-import { useWeatherContext } from './context/WeatherContext';
+import { FC } from "react";
+import styled from "styled-components";
+import WeatherCard from "./WeatherCard";
+import { WeatherData } from "../interface/Interface";
+import { useWeatherContext } from "./context/WeatherContext";
 
 // Styled component for the weather list container
 const ListContainer = styled.div`
@@ -14,9 +14,9 @@ const ListContainer = styled.div`
 `;
 
 interface Props {
-  weatherData: WeatherData[]; // Specify type for weatherData prop
-  loading: boolean; // Add the loading property
-  addToFavorites: (weather: WeatherData) => void; // Add the addToFavorites property
+  weatherData: WeatherData[];
+  loading: boolean;
+  addToFavorites: (weather: WeatherData) => void;
 }
 
 const WeatherList: FC<Props> = ({ weatherData }) => {
@@ -26,7 +26,7 @@ const WeatherList: FC<Props> = ({ weatherData }) => {
   const reversedWeatherData = [...weatherData].reverse();
 
   const handleAddToFavorites = (weather: WeatherData) => {
-    addFavorite(weather.id, weather); // Pass id and weather data to addFavorite
+    addFavorite(weather.id, weather);
   };
 
   return (
@@ -36,7 +36,9 @@ const WeatherList: FC<Props> = ({ weatherData }) => {
           key={`${weather.id}_${index}`}
           weatherData={weather}
           loading={weather.loading}
-          addToFavorites={handleAddToFavorites} isAdded={false}        />
+          addToFavorites={handleAddToFavorites}
+          isAdded={false}
+        />
       ))}
     </ListContainer>
   );
